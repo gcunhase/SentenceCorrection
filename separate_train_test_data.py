@@ -9,7 +9,7 @@ import random
 
 shuffle_var = True
 
-data_dir = "./dataset/"
+data_dir = "./" #data_dir = "./dataset/"
 input_path = data_dir+"input1.en"
 output_path = data_dir+"output1.fr"
 
@@ -23,6 +23,7 @@ train_percentage = 0.8 # 80%
 test_percentage = 1-train_percentage
 
 #Open files
+print("Opening files...")
 input_file = open(input_path,"r")
 input_train_file = open(input_train_path,"w")
 input_test_file = open(input_test_path,"w")
@@ -38,6 +39,7 @@ n_train = int(round(n_total*train_percentage))
 #n_test = n_total-n_train
 
 #Shuffle
+print("Shuffling sentences...")
 if (shuffle_var==True):
 	r = random.random() #seed
 	random.shuffle(input_file_info, lambda : r)
@@ -56,7 +58,8 @@ os.system('gzip '+output_train_path)
 
 os.system('tar -cf '+data_dir+'training-giga-fren.tar '+input_train_path+'.gz '+output_train_path+'.gz')
 
-#Close open files	
+#Close open files
+print("Closing files...")	
 input_file.close()
 input_train_file.close()
 input_test_file.close()
