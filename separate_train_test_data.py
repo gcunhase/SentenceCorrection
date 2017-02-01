@@ -41,10 +41,14 @@ n_train = int(round(n_total*train_percentage))
 #Shuffle
 print("Shuffling sentences...")
 if (shuffle_var==True):
-	r = random.random() #seed
-	random.shuffle(input_file_info, lambda : r)
-	random.shuffle(output_file_info, lambda : r)
+	c = list(zip(input_file_info, output_file_info))
+	random.shuffle(c)
+	input_file_info, output_file_info = zip(*c)
+#	r = random.random() #seed
+#	random.shuffle(input_file_info, lambda : r)
+#	random.shuffle(output_file_info, lambda : r)
 
+#Divide train and test
 for j in range(0, n_train):
 	input_train_file.write(input_file_info[j]+"\n")
 	output_train_file.write(output_file_info[j]+"\n")
