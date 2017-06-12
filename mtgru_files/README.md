@@ -1,6 +1,6 @@
 ## MTGRU
 
-Multiple Timescale Gated Recurrent Unit (MTGRU) is a modification of the vanilla GRU that adds Multiple Timescales $\alpha \tau$ to it, where the smaller this coefficient, the slower the model is, meaning that it can remember more things from the past (longer memory).
+Multiple Timescale Gated Recurrent Unit (MTGRU) is a modification of the vanilla GRU that adds Multiple Timescales $\tau$ to it, where the smaller this coefficient, the slower the model is, meaning that it can remember more things from the past (longer memory).
 
 Check related [paper](https://arxiv.org/abs/1607.00718): Minsoo Kim, Moirangthem Dennis Singh, Minho Lee. "Towards Abstraction from Extraction: Multiple Timescale Gated Recurrent Unit for Summarization". ArXiv, July 2016.
 
