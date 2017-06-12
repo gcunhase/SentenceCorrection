@@ -5,7 +5,7 @@ Multiple Timescale Gated Recurrent Unit (MTGRU) is a modification of the vanilla
 Check related [paper](https://arxiv.org/abs/1607.00718): Minsoo Kim, Moirangthem Dennis Singh, Minho Lee. "Towards Abstraction from Extraction: Multiple Timescale Gated Recurrent Unit for Summarization". ArXiv, July 2016.
 
 ### Files modified:
-* Add MTGRUCell and MultiMTRNNCell codes in whatever directory tensorflow is being used. In my case, it is in _/usr/local/lib/python2.7/dist-packages/tensorflow/contrib/rnn/python/ops/corernncellimpl.py_
+* Add MTGRUCell and MultiMTRNNCell codes in the Python script that has the GRUCell and MultiRNNCell and in whatever directory tensorflow is being used. In my case, it is in _/usr/local/lib/python2.7/dist-packages/tensorflow/contrib/rnn/python/ops/_ and the file name is core_rnn_cell_impl.py
 * Add MTGRU usage option in _[my folder]/seq2seqmodel.py_
 
 ### Credits
