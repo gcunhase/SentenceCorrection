@@ -9,7 +9,7 @@
 # Date: June 15th 2017
 #
 
-echo “Generate files“
+echo "Generate files"
 
 # Python path
 ROOT_DIR="./rnn/translate-mtgru/"
