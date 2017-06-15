@@ -5,6 +5,9 @@
 # move it to the BLEU and ROUGE scores directory
 # and get those scores
 #
+# Author: Gwena Cunha
+# Date: June 15th 2017
+#
 
 echo “Generate files“
 
