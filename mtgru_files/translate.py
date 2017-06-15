@@ -38,6 +38,8 @@ import sys
 import time
 import logging
 
+import argparse
+
 import numpy as np
 from six.moves import xrange  # pylint: disable=redefined-builtin
 import tensorflow as tf
@@ -57,9 +59,10 @@ tf.app.flags.DEFINE_integer("size", 1024, "Size of each model layer.")
 tf.app.flags.DEFINE_integer("num_layers", 3, "Number of layers in the model.")
 tf.app.flags.DEFINE_integer("from_vocab_size", 40000, "English vocabulary size.")
 tf.app.flags.DEFINE_integer("to_vocab_size", 40000, "French vocabulary size.") #40000
-tf.app.flags.DEFINE_string("data_dir", "./incompleteDataPOS", "Data directory") #./incompletedata
-tf.app.flags.DEFINE_string("train_dir", "./incompleteDataPOSTrain", "Training directory.") #./incompletetrain
-tf.app.flags.DEFINE_string("test_dir", "./incompleteDataPOSTest/", "Testing directory.") #./incompletetest
+tf.app.flags.DEFINE_string("root_dir", "./", "Data directory") #./model's root dir
+tf.app.flags.DEFINE_string("data_dir", "incompleteDataPOS", "Data directory") #./incompletedata
+tf.app.flags.DEFINE_string("train_dir", "incompleteDataPOSTrain", "Training directory.") #./incompletetrain
+tf.app.flags.DEFINE_string("test_dir", "incompleteDataPOSTest/", "Testing directory.") #./incompletetest
 tf.app.flags.DEFINE_string("from_train_data", None, "Training data.")
 tf.app.flags.DEFINE_string("to_train_data", None, "Training data.")
 tf.app.flags.DEFINE_string("from_dev_data", None, "Training data.")
@@ -85,7 +88,6 @@ FLAGS = tf.app.flags.FLAGS
 # We use a number of buckets and pad to the closest one for efficiency.
 # See seq2seq_model.Seq2SeqModel for details of how they work.
 _buckets = [(5, 10), (10, 15), (20, 25), (40, 50)]
-
 
 def read_data(source_path, target_path, max_size=None):
   """Read data from source and target files and put into buckets.
@@ -378,6 +380,31 @@ def self_test():
 
 
 def main(_):
+    
+  parser = argparse.ArgumentParser(description='Translate MTGRU network')
+  parser.add_argument('--auto_decode', type=bool, default=FLAGS.auto_decode,
+                        help='MTGRU auto decode. Default: ' + str(FLAGS.auto_decode))
+  parser.add_argument('--root_dir', type=str, default=FLAGS.root_dir,
+                        help='Models root directory. Default: ' + str(FLAGS.root_dir))
+  parser.add_argument('--test_dir', type=str, default=FLAGS.test_dir,
+                        help='Test directory. Default: ' + str(FLAGS.test_dir))
+  parser.add_argument('--test_file_in', type=str, default=FLAGS.test_file_in,
+                        help='Test file input. Default: ' + str(FLAGS.test_file_in))
+  parser.add_argument('--test_file_out', type=str, default=FLAGS.test_file_out,
+                        help='Test file output. Default: ' + str(FLAGS.test_file_out))
+  args = parser.parse_args()
+  
+  FLAGS.auto_decode = args.auto_decode  
+  FLAGS.root_dir = args.root_dir
+  FLAGS.test_dir = args.test_dir
+  FLAGS.test_file_in = args.test_file_in  
+  FLAGS.test_file_out = args.test_file_out  
+  
+  FLAGS.data_dir = FLAGS.root_dir+FLAGS.data_dir
+  FLAGS.train_dir = FLAGS.root_dir+FLAGS.train_dir
+  FLAGS.test_dir = FLAGS.root_dir+FLAGS.test_dir
+   
+    
   if FLAGS.self_test:
     self_test()
   elif FLAGS.decode:
