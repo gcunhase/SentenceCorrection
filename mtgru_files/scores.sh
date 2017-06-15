@@ -23,8 +23,7 @@ TEST_FILE_IN_1="newstest2013_small2.en"
 TEST_FILE_EXP_1="newstest2013_small2.fr"
 TEST_FILE_OUT_1="newstest2013_small2_out_mtgru.txt"
 SCORES_FILE_1="newstest2013_small2_out_mtgru_scores.txt"
-
-#python $PYTHON_SCRIPT --root_dir=$ROOT_DIR --test_file_in=$TEST_FILE_IN_1 --test_file_out=$TEST_FILE_OUT_1 --auto_decode=true --test_dir=$TEST_DIR
+python $PYTHON_SCRIPT --root_dir=$ROOT_DIR --test_file_in=$TEST_FILE_IN_1 --test_file_out=$TEST_FILE_OUT_1 --auto_decode=true --test_dir=$TEST_DIR
 
 # Generate 1000 sentences test file and wait
 echo "Generate 1000 sentences test file"
@@ -32,8 +31,7 @@ TEST_FILE_IN_2="newstest2013_1000.en"
 TEST_FILE_EXP_2="newstest2013_1000.fr"
 TEST_FILE_OUT_2="newstest2013_1000_out_mtgru.txt"
 SCORES_FILE_2="newstest2013_1000_out_mtgru_scores.txt"
-
-#python $PYTHON_SCRIPT --root_dir=$ROOT_DIR --test_file_in=$TEST_FILE_IN_2 --test_file_out=$TEST_FILE_OUT_2 --auto_decode=true --test_dir=$TEST_DIR
+python $PYTHON_SCRIPT --root_dir=$ROOT_DIR --test_file_in=$TEST_FILE_IN_2 --test_file_out=$TEST_FILE_OUT_2 --auto_decode=true --test_dir=$TEST_DIR
 
 
 # Scores path
