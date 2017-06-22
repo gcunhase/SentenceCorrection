@@ -82,8 +82,10 @@ tf.app.flags.DEFINE_boolean("self_test", False,
                             "Run a self-test if this is set to True.")
 tf.app.flags.DEFINE_boolean("use_fp16", False,
                             "Train using fp16 instead of fp32.")
-
+tf.app.flags.DEFINE_string("checkpoint_filename", "checkpoint_perplexities.txt", "Checkpoint textfile filename.")
+      
 FLAGS = tf.app.flags.FLAGS
+CHECK_FILE = None
 
 # We use a number of buckets and pad to the closest one for efficiency.
 # See seq2seq_model.Seq2SeqModel for details of how they work.
@@ -221,12 +223,16 @@ def train():
       current_step += 1
 
       # Once in a while, we save checkpoint, print statistics, and run evals.
+      # Gwena's modification: save train and bucket perplexities to txt file
+      check_str = ""
       if current_step % FLAGS.steps_per_checkpoint == 0:
         # Print statistics for the previous epoch.
+        global_step = model.global_step.eval()
+        learning_rate = model.learning_rate.eval()
         perplexity = math.exp(float(loss)) if loss < 300 else float("inf")
         print ("global step %d learning rate %.4f step-time %.2f perplexity "
-               "%.2f" % (model.global_step.eval(), model.learning_rate.eval(),
-                         step_time, perplexity))
+               "%.2f" % (global_step, learning_rate, step_time, perplexity))
+        check_str = str(global_step)+" "+str(learning_rate)+" "+str(step_time)+" "+str(perplexity)
         # Decrease learning rate if no improvement was seen over last 3 times.
         if len(previous_losses) > 2 and loss > max(previous_losses[-3:]):
           sess.run(model.learning_rate_decay_op)
@@ -247,6 +253,10 @@ def train():
           eval_ppx = math.exp(float(eval_loss)) if eval_loss < 300 else float(
               "inf")
           print("  eval: bucket %d perplexity %.2f" % (bucket_id, eval_ppx))
+          check_str = check_str+" "+str(eval_ppx)
+        
+        check_str = check_str+"\n"
+        CHECK_FILE.write(check_str)
         sys.stdout.flush()
 
 
@@ -403,7 +413,12 @@ def main(_):
   FLAGS.data_dir = FLAGS.root_dir+FLAGS.data_dir
   FLAGS.train_dir = FLAGS.root_dir+FLAGS.train_dir
   FLAGS.test_dir = FLAGS.root_dir+FLAGS.test_dir
-   
+
+  #Write log file   
+  check_str = "global_step learning_rate step_time train_perp bucket_perps\n"
+  #CHECK_FILE = open(FLAGS.checkpoint_filename, 'w')
+  CHECK_FILE.write(check_str)
+    
     
   if FLAGS.self_test:
     self_test()
@@ -415,4 +430,5 @@ def main(_):
     train()
 
 if __name__ == "__main__":
+  CHECK_FILE = open(FLAGS.checkpoint_filename, 'w')
   tf.app.run()
