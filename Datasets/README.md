@@ -5,7 +5,7 @@
 Firstly, we tried to build an Incorrect Sentences Dataset by translating an existing Q&A dataset from Korean to English hoping that the English sentences obtained from such translation would be incorrect enough for us to achieve our goal. The original Q&A dataset already provided us with the corresponding correct English sentences.
 
 The files used for this were:
-* *Data-QnA*: folder containing (*Dataset.zip*) and final results (*input1.en* and *output1.fr*).
+* *Data-QnA*: folder containing (*Dataset.zip*), final results (*input1.en* and *output1.fr*) and necessary scripts used solely for this solution.
 * *mtranslate-master*: translates files necessary to build the Dataset for our Language Correction model.
 * *separate_train_test_data.py*: Python script to separate train and test data (80 and 20% respectively), includes optional shuffle function to shuffle sentences in the file. Obs: original data is formed by 40 files. In order to use this script, one has to first concatenate them all in one (*en_clean* should form 1 single file named *output1.en* and *en_translated_by_python* should form 1 single file named *input1.fr*).
 
