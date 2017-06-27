@@ -6,6 +6,9 @@
 #  and correct english respectively
 # Corpus source: http://www.comp.nus.edu.sg/~nlp/corpora.html
 #
+# Dataset is actually to transform text messages into more
+#  understandable english, but not necessarily correct
+#
 # Author: Gwena Cunha
 # Date: June 28th 2017
 
