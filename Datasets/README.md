@@ -7,11 +7,10 @@ Firstly, we tried to build an Incorrect Sentences Dataset by translating an exis
 The files used for this were:
 * *clean_data.py*: pre-processesses the original data (*en* and *kr*), which are given in the Q&A format, so as to be in the format of one sentence per line.
 * *translate_sentences.py*: 
-* : original Q&A dataset
-* : final result
+* : original Q&A dataset and final result
 
 ### Limitations
-The problem with this dataset was that the goal of a Q&A task is too different from our goal. In a Q&A task, the same set of nouns and verbs are constantly being repeated, there's no variety, and that results in an extremely limited vocabulary. Also, sentences are very short.
+The problem with this dataset was that the goal of a Q&A task is too different from our goal. There's no variety in a Q&A task and the sentences are very short. The same set of nouns and verbs are constantly being repeated, and that results in an extremely limited vocabulary.
 
 Example of Q&A:
 ```
