@@ -6,8 +6,11 @@ Firstly, we tried to build an Incorrect Sentences Dataset by translating an exis
 
 The files used for this were:
 * *clean_data.py*: pre-processesses the original data (*en* and *kr*), which are given in the Q&A format, so as to be in the format of one sentence per line.
-* *translate_sentences.py*:
-* : original Q&A dataset and final result
+* *mtranslate-master*: translates files necessary to build the Dataset for our Language Correction model.
+* *Data-QnA*: folder containing (*Dataset.zip*) and final results (*input1.en* and *output1.fr*).
+* *add_dot.py*: after translation, some sentences don't include a stop sign at the end, so this script aims to do that.
+* *separate_train_test_data.py*: Python script to separate train and test data (80 and 20% respectively), includes optional shuffle function to shuffle sentences in the file. Obs: original data is formed by 40 files. In order to use this script, one has to first concatenate them all in one (*en_clean* should form 1 single file named *output1.en* and *en_translated_by_python* should form 1 single file named *input1.fr*).
+
 
 #### Limitations
 The problem with this dataset was that the goal of a Q&A task is too different from ours. There's no variety in a Q&A task and the sentences are very short. The same set of nouns and verbs are constantly being repeated, and that results in an extremely limited vocabulary. This is illustrated in the example below.
