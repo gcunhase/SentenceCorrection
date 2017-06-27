@@ -15,7 +15,14 @@ The problem with this dataset was that the goal of a Q&A task is too different f
 
 Example of Q&A:
 ```
-Include example
+John traveled in the corridor.
+Mary traveled to the bathroom.
+Daniel went back to the bathroom.
+John moves into the bedroom.
+John went to the hallway.
+Sandra travels to the kitchen.
+Sandra travels in the corridor.
+...
 ```
 
 ## Second Solution: WMT '15 Translated Data
