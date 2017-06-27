@@ -1,0 +1,51 @@
+NUS Social Media Text Normalization and Translation Corpus
+VERSION: 1.0
+
+######################################################
+1. Corpus
+######################################################
+
+This corpus has been created for social media text normalization and
+translation. The file en2cn-2k.en2nen2cn contains the released corpus.
+From the NUS English SMS corpus
+(http://wing.comp.nus.edu.sg:8080/SMSCorpus/old.jsp), we randomly
+selected 2,000 messages. The messages were first normalized into
+formal English and then translated into formal Chinese.
+
+The format of the corpus is as follows:
+
+Line 1: the original English SMS message
+Line 2: the manually normalizaed English message
+Line 3: the translation in Chinese
+....
+
+The corpus is encoded in UTF-8 with UNIX-style new line characters.
+
+######################################################
+2. License
+######################################################
+
+This corpus is made available for research porpuse only. If you use
+this corpus in your research, please cite the following paper:
+
+Pidong Wang and Hwee Tou Ng. 2013. A Beam-Search Decoder for
+Normalization of Social Media Text with Application to Machine
+Translation. In Proceedings of the North American Chapter of the
+Association for Computational Linguistics (NAACL).
+
+######################################################
+3. Disclaimer
+######################################################
+
+The corpus may contain offensive messages. They do not represent the
+views, policies, or opinions of the authors or The National University
+of Singapore (NUS).
+
+######################################################
+4. Contacts
+######################################################
+
+Please send comments or suggestions on the corpus to:
+
+  Pidong WANG (wangpd@comp.nus.edu.sg) 
+  Hwee Tou NG (nght@comp.nus.edu.sg)
