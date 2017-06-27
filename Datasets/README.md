@@ -2,17 +2,16 @@
 # Incorrect Sentences Dataset
 
 ## First Solution: Q&A Data
-Firstly, we tried to build an Incorrect Sentences Dataset by translating an existing Q&A dataset from Korean to English hoping that the English sentences obtained from such translation would be incorrect enough for us to achieve our goal. The Q&A dataset already provided us with the corresponding correct English sentences.
+Firstly, we tried to build an Incorrect Sentences Dataset by translating an existing Q&A dataset from Korean to English hoping that the English sentences obtained from such translation would be incorrect enough for us to achieve our goal. The original Q&A dataset already provided us with the corresponding correct English sentences.
 
 The files used for this were:
 * *clean_data.py*: pre-processesses the original data (*en* and *kr*), which are given in the Q&A format, so as to be in the format of one sentence per line.
-* *translate_sentences.py*: 
+* *translate_sentences.py*:
 * : original Q&A dataset and final result
 
 ### Limitations
-The problem with this dataset was that the goal of a Q&A task is too different from our goal. There's no variety in a Q&A task and the sentences are very short. The same set of nouns and verbs are constantly being repeated, and that results in an extremely limited vocabulary.
+The problem with this dataset was that the goal of a Q&A task is too different from ours. There's no variety in a Q&A task and the sentences are very short. The same set of nouns and verbs are constantly being repeated, and that results in an extremely limited vocabulary. This is illustrated in the example below.
 
-Example of Q&A:
 ```
 John traveled in the corridor.
 Mary traveled to the bathroom.
