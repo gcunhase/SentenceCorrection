@@ -31,6 +31,7 @@ The second solution found was to use the [WMT '15 English-to-French dataset](htt
 
 ![alt text](https://github.com/gcunhase/LanguageCorrection/tree/master/images/translationPivotLanguage.png "Pivot Language Translation")
 
+![ScreenShot](https://raw.githubusercontent.com/gcunhase/LanguageCorrection/tree/master/images/translationPivotLanguage.png)
 
 #### Limitations
 Translation bound
