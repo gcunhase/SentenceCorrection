@@ -29,7 +29,7 @@ The second solution found was to use the [WMT '15 English-to-French dataset](htt
 
 ![alt text](https://github.com/gcunhase/LanguageCorrection/blob/master/images/translationPivotLanguage.png "Pivot Language Translation")
 
-![alt text](https://github.com/gcunhase/LanguageCorrection/tree/master/images "Pivot Language Translation")
+![alt text](https://github.com/gcunhase/LanguageCorrection/tree/master/images/translationPivotLanguage.png "Pivot Language Translation")
 
 
 #### Limitations
