@@ -25,10 +25,13 @@ Sandra travels in the corridor.
 ```
 
 ## Second Solution: WMT '15 Translated Data
-The second solution found was to use the [WMT '15 English-to-French dataset](http://www.statmt.org/wmt15/translation-task.html), which is in a more human-like text format, to perform a French-Korean-English translation in order to obtain the desired wrong sentences data.
+The second solution found was to use the [WMT '15 English-to-French dataset](http://www.statmt.org/wmt15/translation-task.html), which is in a more human-like text format, to perform a French-Korean-English translation in order to obtain the desired wrong sentences data, using Korean as a pivot language.
+
+![alt text](https://github.com/gcunhase/LanguageCorrection/blob/master/images/translationPivotLanguage.png "Logo Title Text 1")
+
 
 #### Limitations
-Translation bounded
+Translation bound
 
 
 ## Third Solution: POS-Tagging of WMT'15 English Data
