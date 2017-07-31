@@ -45,17 +45,29 @@ class TestTfIdf(unittest.TestCase):
 #Okay, see you next time then.
 #I am Ellen, 18 years old, Chinese, from KL.
 
-    '''        
-
     def test_add_docs_from_file(self):
         table = tfidf.TfIdf()
         table.add_docs_from_file("correct_english.txt")
         dictionary_x = table.save_dictionary_in_file("dictionary_docs_from_file")
         print(dictionary_x)
+    '''        
+    
+#    def test_datasets_test_train_simple_words(self):
 
+    def test_save_tfidftable_on_pickle(self):
+        table = tfidf.TfIdf()
+        table.add_docs_from_file("correct_english.txt")
+        dictionary_x = table.save_dictionary("dictionary_docs", "pickle")
+        
+        total_number_words, corpus_dict, sorted_x = table.load_dictionary_from_pickle("dictionary_docs_pickle.txt")
+        print(total_number_words)
+        #sorted_x.reverse()
+        print(sorted_x)       
+        
 
+#    def test_datasets_test_train_complex_words(self):
 
 if __name__ == "__main__":
     unittest.main()
     
-    
+ 
