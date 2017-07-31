@@ -23,6 +23,7 @@ import sys
 import os
 import operator
 import string, copy
+import pickle
 
 class TfIdf:
     def __init__(self):
@@ -90,8 +91,34 @@ class TfIdf:
         #print(test.items())
         return test;
 
+    def save_dictionary(self, filename, where):
+        if (where.lower() == "file"): #file
+           self.save_dictionary_in_file(filename)
+        elif (where.lower() == "pickle"): #pickle
+           self.save_dictionary_in_pickle(filename)
+        elif (where.lower() == "both"): #both
+           self.save_dictionary_in_file(filename)
+           self.save_dictionary_in_pickle(filename)
+        else: #not found
+            print("Save dictionary command not found\n")            
+
+    def save_dictionary_in_pickle(self, filename):
+        output = open(filename+'_pickle.txt', 'w')
+        pickle.dump(self.total_number_words, output)
+        pickle.dump(self.corpus_dict, output)
+        sorted_x = sorted(self.corpus_dict.items(), key=operator.itemgetter(1))
+        pickle.dump(sorted_x, output)
+        output.close()
+
+    def load_dictionary_from_pickle(self, filename):
+        output = open(filename, 'rb')
+        total_number_words = pickle.load(output)
+        corpus_dict = pickle.load(output)
+        sorted_x = pickle.load(output)
+        output.close()
+        return total_number_words, corpus_dict, sorted_x
+
     def save_dictionary_in_file(self, filename):
-        print("TODO: perform saving")
         words = "# words: "+str(self.total_number_words)
         print(words)
         dist_words = "# distinct words: "+str(len(self.corpus_dict))
