@@ -10,6 +10,10 @@ Check related [paper](https://arxiv.org/abs/1607.00718): Minsoo Kim, Moirangthem
 * _translate.py_: added _auto_decode()_ function to read a txt file with input sentences (_.en_) and writes the output sentences generated with the trained model in another file ([filename]_out_gru.txt or [filename]_out_mtgru.txt). This generated file is then compared with the file containing the expected sentences (_.fr_) to get the BLEU and ROUGE calculations (and in the future also METEOR). Furthermore, this file writes the checkpoint info to a text file for later plotting.
 * _scores.sh_: automatically calculates the BLEU and ROUGE scores of 2 test datasets originated by the MTGRU model
 
+### Error
+Works only on Tensorflow 1.0.1: IBM server
+  ```python -c 'import sys; sys.path.insert(0, "/opt/DL/tensorflow/lib/python2.7/site-packages"); import tensorflow as tf; print(tf.__version__)'```
+
 ### Credits
 Code credits to Dennis Moirangthem from ABRLab, KNU, Daegu, South Korea.
 
