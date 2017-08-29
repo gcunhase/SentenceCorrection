@@ -13,8 +13,10 @@ data_dir = "./" #data_dir = "./dataset/"
 input_path = data_dir+"input1.en"
 output_path = data_dir+"output1.fr"
 
-input_train_path = data_dir+"giga-fren.release2.fixed.en"
-output_train_path = data_dir+"giga-fren.release2.fixed.fr"
+input_train_p = "giga-fren.release2.fixed.en"
+input_train_path = data_dir+input_train_p
+output_train_p = "giga-fren.release2.fixed.fr"
+output_train_path = data_dir+output_train_p
 
 input_test_path = data_dir+"newstest2013.en"
 output_test_path = data_dir+"newstest2013.fr"
@@ -60,7 +62,7 @@ for j in range(n_train, n_total):
 os.system('gzip '+input_train_path)
 os.system('gzip '+output_train_path)
 
-os.system('tar -cf '+data_dir+'training-giga-fren.tar '+input_train_path+'.gz '+output_train_path+'.gz')
+os.system('cd '+data_dir+'; tar -cf training-giga-fren.tar '+input_train_p+'.gz '+output_train_p+'.gz')
 
 #Close open files
 print("Closing files...")	
