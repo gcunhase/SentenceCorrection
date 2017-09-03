@@ -41,14 +41,14 @@ As for the *input data*, it is a modification of the target data using Python’
 
 <center>
 
-| Tag        | Meaning           | Example  |
-| ------------- |:-------------:|:-----:|
-| CC | coordinating conjunction | *and* |
-| DT | determiner | *the* |
-| IN | preposition/subordinating conjunction | *in, of, for, like* |
-| LS | list marker | *1)* |
-| TO | to	| *go 'to' the store* |
-| UH | interjection | *errrrrrrrm* |
+| Tag | Meaning                               | Example             |
+| --- |:-------------------------------------:|:-------------------:|
+| CC  | coordinating conjunction              | *and*               |
+| DT  | determiner                            | *the*               |
+| IN  | preposition/subordinating conjunction | *in, of, for, like* |
+| LS  | list marker                           | *1)*                |
+| TO  | to	                                  | *go 'to' the store* |
+| UH  | interjection                          | *errrrrrrrm*        |
 
 </center>
 
