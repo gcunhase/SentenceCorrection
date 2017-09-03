@@ -50,5 +50,5 @@ As for the *input data*, it is a modification of the target data using Python’
 | TO | to	| *go 'to' the store* |
 | UH | interjection | *errrrrrrrm* |
 
-<\p>
+</p>
 
