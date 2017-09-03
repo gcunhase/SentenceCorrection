@@ -35,5 +35,18 @@ Translation bound
 
 
 ## Third Solution: POS-Tagging of WMT'15 English Data
+The original data consists of 22,000,000 sentences of various lengths totaling about 20GB of disk space. However, MTGRU’s performance can be better observed in longer sentences. So, for this purpose, we consider only sentences that consist of 15 to 20 words, giving us a total of 3,000,000 sentences. The *target data* is said subset of the available English document.
+
+As for the *input data*, it is a modification of the target data using Python’s Natural Language Toolkit ([NLTK](http://www.nltk.org/)) which allows for part-of-speech tagging, or POS-tagging, of words. In other terms, it allows for words to be classified into their respective lexical categories. After the tagging of words is completed, we choose a tagset that is considered irrelevant to be randomly deleted from sentences and thus form the incomplete dataset that we need. The tagset chosen, as well as each tags respective meaning and example, is displayed in the table below. In order to obtain the train and test data for both the target and input dataset, we divide each of them into 80 and 20% of the total data respectively.
+
+
+| Tag        | Meaning           | Example  |
+| ------------- |:-------------:| -----:|
+| CC | coordinating conjunction | *and* |
+| DT | determiner | *the* |
+| IN | preposition/subordinating conjunction | *in, of, for, like* |
+| LS | list marker | *1)* |
+| TO | to	| *go 'to' the store* |
+| UH | interjection | *errrrrrrrm* |
 
 
