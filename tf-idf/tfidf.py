@@ -1,6 +1,4 @@
 #
-# Script to manipulate audio
-#
 # Modified by: Gwena Cunha
 # Date: July 26th 2017
 #
@@ -24,6 +22,7 @@ import os
 import operator
 import string, copy
 import pickle
+import re
 
 class TfIdf:
     def __init__(self):
@@ -39,14 +38,17 @@ class TfIdf:
         line_count = 1
         for sentence in text_file:
             sentence = sentence.split("\n")[0]
-            self.add_doc_sentence("sent"+str(line_count), sentence)
+            self.add_doc_sentence(filename+"sent"+str(line_count), sentence)
             line_count = line_count+1
             
         text_file.close()
     
     def add_doc_sentence(self, doc_name, sentence):
         # Assume no special characters or markers
-        list_of_words = sentence.split(" ")
+        # Old way of getting words
+	#list_of_words = sentence.split(" ")
+	# New way of getting words: https://stackoverflow.com/questions/6181763/converting-a-string-to-a-list-of-words
+	list_of_words = re.sub("[^\w]", " ",  sentence).split()
         self.add_document(doc_name, list_of_words)
 
     def add_document(self, doc_name, list_of_words):
@@ -55,7 +57,7 @@ class TfIdf:
         table = string.maketrans("","")
         for i in range(0, len(list_of_words)):
             list_of_words[i] = list_of_words[i].lower().translate(table, string.punctuation)
-        
+
         # building a dictionary.
         # Count the number of occurrences of each character: if it already has
         #  a count for a given character, get returns it (so it's just incremented
