@@ -13,7 +13,7 @@ Check related [paper](https://arxiv.org/abs/1607.00718): Minsoo Kim, Moirangthem
 ### Error
 Works only on Tensorflow 1.0.1: IBM server
 
-    ```python -c 'import sys; sys.path.insert(0, "/opt/DL/tensorflow/lib/python2.7/site-packages"); import tensorflow as tf; print(tf.__version__)'```
+```python -c 'import sys; sys.path.insert(0, "/opt/DL/tensorflow/lib/python2.7/site-packages"); import tensorflow as tf; print(tf.__version__)'```
 
 ### Credits
 Code credits to Dennis Moirangthem from ABRLab, KNU, Daegu, South Korea.
