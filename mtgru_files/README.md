@@ -10,6 +10,16 @@ Check related [paper](https://arxiv.org/abs/1607.00718): Minsoo Kim, Moirangthem
 * *translate.py*: added *auto_decode()* function to read a txt file with input sentences (*.en*) and writes the output sentences generated with the trained model in another file (*[filename]_out_gru.txt* or *[filename]_out_mtgru.txt*). This generated file is then compared with the file containing the expected sentences (*.fr*) to get the BLEU and ROUGE calculations (and in the future also METEOR). Furthermore, this file writes the checkpoint info to a text file for later plotting.
 * *scores.sh*: automatically calculates the BLEU and ROUGE scores of 2 test datasets originated by the MTGRU model
 
+### For Tensorflow 1.2.1
+* in *run_summarization.py* add:
+  ```python
+  import sys
+  sys.path.append("/home/jg/Desktop/rnn/translate-mtgru/")
+  import seq2seq_model
+  ```
+  * Error: *Cannot import name core_rnn_cell_impl*
+  * *core_rnn_cell_impl.py*: ```/usr/local/cuda-8.0/tensorflow/tensorflow/contrib/rnn/python/ops/```
+
 ### Error
 Works only on Tensorflow 1.0.1: IBM server
 
