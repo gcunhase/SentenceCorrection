@@ -19,7 +19,9 @@ Check related [paper](https://arxiv.org/abs/1607.00718): Minsoo Kim, Moirangthem
   ```
   * Error: *Cannot import name core_rnn_cell_impl*
   * *core_rnn_cell_impl.py*: ```/usr/local/cuda-8.0/tensorflow/tensorflow/contrib/rnn/python/ops/```
-
+  * *rnn_cell_impl.py* is the new *core_rnn_cell_impl.py*?: ```/tensorflow/python/ops/```
+  * Add in *rnn_cell_impl.py*: MTGRUCell, MultiMTRNNCell and ```from tensorflow.python.ops.math_ops import tanh```
+  
 ### Error
 Works only on Tensorflow 1.0.1: IBM server
 
