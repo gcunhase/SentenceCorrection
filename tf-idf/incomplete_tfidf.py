@@ -24,11 +24,11 @@ MISSING_COMPLEX_WORDS_ENGLISH_FILENAME = "missing_complex_words_english.en"
 DICT_FILENAME = "dictionary_docs"
 DICT_PICKLE_FILENAME = DICT_FILENAME+"_pickle.txt"
 #Simple
-#PERCENTAGE_ALLOW_MISSING_WORD = 0.8 #0.5 #0.4
-#PERCENTAGE_ALLOW_MISSING_SUBSTRING = 0.6
+PERCENTAGE_ALLOW_MISSING_WORD = 0.4 #0.8 #0.5 #0.4
+PERCENTAGE_ALLOW_MISSING_SUBSTRING = 0.3 #0.6
 #Complex
-PERCENTAGE_ALLOW_MISSING_WORD = 0.6
-PERCENTAGE_ALLOW_MISSING_SUBSTRING = 0.4
+#PERCENTAGE_ALLOW_MISSING_WORD = 0.6
+#PERCENTAGE_ALLOW_MISSING_SUBSTRING = 0.4
 
 
 def save_dict_fromMultipleFiles_on_pickle_and_file(data_dir, cnn_dir, dailymail_dir):
@@ -182,7 +182,7 @@ def get_datasets_fromMultipleFiles_missing_simple_words(corpus_dict, sorted_x, t
     #top_words = 100    
 
     #DONE: new folder data-missingsimple/
-    new_data_dir = get_new_data_dir_name(data_dir, "-missingsimple")
+    new_data_dir = get_new_data_dir_name(data_dir, "-missingsimple-"+str(PERCENTAGE_ALLOW_MISSING_WORD)+"-"+str(PERCENTAGE_ALLOW_MISSING_SUBSTRING)+"rand")
     get_datasets_fromMultipleFiles_missing_words(vec_x, top_words, data_dir, new_data_dir, cnn_dir, dailymail_dir)
     
 
@@ -191,7 +191,7 @@ def get_datasets_fromMultipleFiles_missing_complex_words(corpus_dict, sorted_x, 
     vec_x = copy.copy(sorted_x)
     
     #DONE: new folder data-missingcomplex/
-    new_data_dir = get_new_data_dir_name(data_dir, "-missingcomplex")
+    new_data_dir = get_new_data_dir_name(data_dir, "-missingcomplex-"+str(PERCENTAGE_ALLOW_MISSING_WORD)+"-"+str(PERCENTAGE_ALLOW_MISSING_SUBSTRING)+"rand")
     get_datasets_fromMultipleFiles_missing_words(vec_x, top_words, data_dir, new_data_dir, cnn_dir, dailymail_dir)
 
 def get_datasets_fromMultipleFiles_missing_words(vec_x, top_words, data_dir, new_data_dir, cnn_dir, dailymail_dir):
@@ -236,7 +236,7 @@ def multiple_files_sample(data_dir, dataset_dir, n_files):
 
 def multiple_files():
 
-    data_dir = "/data/Gwena/cnn-dm-data/" #"../../data/"
+    data_dir = "../../data/" #"/data/Gwena/cnn-dm-data/"
     cnn_dir = "cnn/stories/"
     dailymail_dir = "dailymail/stories/"
     
@@ -251,17 +251,17 @@ def multiple_files():
     
     ## Simple dataset
     top_words = 100
-    #get_datasets_fromMultipleFiles_missing_simple_words(corpus_dict, sorted_x, top_words, data_dir, cnn_dir, dailymail_dir)
+    get_datasets_fromMultipleFiles_missing_simple_words(corpus_dict, sorted_x, top_words, data_dir, cnn_dir, dailymail_dir)
 
     ## Complex dataset
-    #top_words_complex = len(corpus_dict) - top_words*top_words #min(len(corpus_dict), top_words*top_words)
-    top_words_complex = 100000 #len(corpus_dict) = 503,680
-    get_datasets_fromMultipleFiles_missing_complex_words(corpus_dict, sorted_x, top_words_complex, data_dir, cnn_dir, dailymail_dir)
-    print("Total number words: "+str(len(corpus_dict))+"; Top words complex: "+str(top_words_complex))
+    ##top_words_complex = len(corpus_dict) - top_words*top_words #min(len(corpus_dict), top_words*top_words)
+    #top_words_complex = 100000 #len(corpus_dict) = 503,680
+    #get_datasets_fromMultipleFiles_missing_complex_words(corpus_dict, sorted_x, top_words_complex, data_dir, cnn_dir, dailymail_dir)
+    #print("Total number words: "+str(len(corpus_dict))+"; Top words complex: "+str(top_words_complex))
 
 
 def main():
-    ## Singla media dataset
+    ## Single media dataset
     #single_file()
     
     ## CNN and daily mail multiple files .story files dataset
