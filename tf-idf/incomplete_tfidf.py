@@ -182,7 +182,7 @@ def get_datasets_fromMultipleFiles_missing_simple_words(corpus_dict, sorted_x, t
     #top_words = 100    
 
     #DONE: new folder data-missingsimple/
-    new_data_dir = get_new_data_dir_name(data_dir, "-missingsimple-"+str(PERCENTAGE_ALLOW_MISSING_WORD)+"-"+str(PERCENTAGE_ALLOW_MISSING_SUBSTRING)+"rand")
+    new_data_dir = get_new_data_dir_name(data_dir, "-missingsimple-"+str(PERCENTAGE_ALLOW_MISSING_WORD)+"-"+str(PERCENTAGE_ALLOW_MISSING_SUBSTRING)+"rand-"+str(top_words)+"top")
     get_datasets_fromMultipleFiles_missing_words(vec_x, top_words, data_dir, new_data_dir, cnn_dir, dailymail_dir)
     
 
@@ -191,7 +191,7 @@ def get_datasets_fromMultipleFiles_missing_complex_words(corpus_dict, sorted_x, 
     vec_x = copy.copy(sorted_x)
     
     #DONE: new folder data-missingcomplex/
-    new_data_dir = get_new_data_dir_name(data_dir, "-missingcomplex-"+str(PERCENTAGE_ALLOW_MISSING_WORD)+"-"+str(PERCENTAGE_ALLOW_MISSING_SUBSTRING)+"rand")
+    new_data_dir = get_new_data_dir_name(data_dir, "-missingcomplex-"+str(PERCENTAGE_ALLOW_MISSING_WORD)+"-"+str(PERCENTAGE_ALLOW_MISSING_SUBSTRING)+"rand-"+str(top_words)+"top")
     get_datasets_fromMultipleFiles_missing_words(vec_x, top_words, data_dir, new_data_dir, cnn_dir, dailymail_dir)
 
 def get_datasets_fromMultipleFiles_missing_words(vec_x, top_words, data_dir, new_data_dir, cnn_dir, dailymail_dir):
@@ -236,7 +236,7 @@ def multiple_files_sample(data_dir, dataset_dir, n_files):
 
 def multiple_files():
 
-    data_dir = "../../data/" #"/data/Gwena/cnn-dm-data/"
+    data_dir = "/data/Gwena/cnn-dm-data/" #"../../data/"
     cnn_dir = "cnn/stories/"
     dailymail_dir = "dailymail/stories/"
     
