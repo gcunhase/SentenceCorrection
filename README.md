@@ -8,3 +8,9 @@ Third Solution, check folder Datasets
 
 ## Approach
 ICONIP 2017 paper comparing GRU and MTGRU's performance when applied to the Sentence Correction issue
+
+## New idea
+Refer to the [GRU+Attention model](https://github.com/gcunhase/PaperNotes/blob/master/notes/gruatt.md):
+   1. Compare GRU vs GRUAtt performance
+   2. Add MT to GRUAtt if GRUAtt performs better than Vanilla GRU
+
