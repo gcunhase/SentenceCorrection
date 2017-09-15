@@ -52,3 +52,11 @@ As for the *input data*, it is a modification of the target data using Python’
 
 </center>
 
+#### Results (MTGRU vs GRU)
+![Example 1](https://github.com/gcunhase/SentenceCorrection/blob/master/images/dataset3_ex1.png "Example 1")
+
+![Example 2](https://github.com/gcunhase/SentenceCorrection/blob/master/images/dataset3_ex2.png "Example 2")
+
+![BLEU Table](https://github.com/gcunhase/SentenceCorrection/blob/master/images/mtgru%20vs%20gru%20-%20bleu%20table%20-%20iconip17.png "BLEU Table")
+
+
