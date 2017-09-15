@@ -33,6 +33,9 @@ class TfIdf:
 
 
     def add_docs_from_file(self, filename):
+        '''
+            TODO0: send all sentences as one
+        '''	
         text_file = open(filename,"r") 
         
         line_count = 1
