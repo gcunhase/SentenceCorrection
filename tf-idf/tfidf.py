@@ -161,7 +161,15 @@ class TfIdf:
         f_inv.close()
         return sorted_x
     
+    '''
+    TODO1: Implement TF x IDF for entire corpus (and rank according to that value to get the most important words in corpus)
+    '''
 
+    '''
+    TODO2: Implement TF x IDF for a document (and rank according to that value to get the most important words in file)
+    '''
+
+    
     def similarities(self, list_of_words):
         """Returns a list of all the [docname, similarity_score] pairs relative to a
 list of words.
