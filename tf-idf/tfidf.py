@@ -115,6 +115,7 @@ class TfIdf:
             print("Save dictionary command not found\n")            
 
     def save_dictionary_in_pickle(self, filename):
+        # Corpus pickle
         output = open(filename+'_pickle.txt', 'w')
         pickle.dump(self.total_number_words, output)
         pickle.dump(self.corpus_dict, output)
@@ -122,15 +123,45 @@ class TfIdf:
         pickle.dump(sorted_x, output)
         pickle.dump(self.documents, output)
         output.close()
+        
+        # Documents pickle        
+        N = len(self.documents)
+        for i in range(0, N):
+            data_dir = self.documents[i][0]
+            new_data_dir = self.documents[i][1]
+            dataset_dir = self.documents[i][2]
+            doc_name = self.documents[i][3]
+            words_in_doc = self.documents[i][4]            
+            doc_dict = self.documents[i][5]
+            sorted_doc_inv_x = self.tfidf_score(doc_dict, words_in_doc, N)
+            
+            # save tfidf dictionary in respective file
+            if not os.path.exists(new_data_dir+dataset_dir):
+                os.makedirs(new_data_dir+dataset_dir)
+            output_doc = open(new_data_dir+dataset_dir+doc_name.split(".")[0]+"_pickle.tfidf", 'w')        
+            pickle.dump(words_in_doc, output_doc)
+            pickle.dump(doc_dict, output_doc)
+            pickle.dump(sorted_doc_inv_x, output_doc)
+            output_doc.close()
+            
+        
 
     def load_dictionary_from_pickle(self, filename):
         output = open(filename, 'rb')
         total_number_words = pickle.load(output)
         corpus_dict = pickle.load(output)
         sorted_x = pickle.load(output)
-        documents = pickle.load(output)
+        documents = pickle.load(output) #new_data_dir+dataset_dir+doc_name.split(".")[0]+"_pickle.tfidf"
         output.close()
         return total_number_words, corpus_dict, sorted_x, documents
+
+    def load_single_file_dictionary_from_pickle(self, new_data_dir, dataset_dir, filename):
+        output_doc = open(new_data_dir+dataset_dir+filename.split(".")[0]+"_pickle.tfidf", 'rb')
+        words_in_doc = pickle.load(output_doc)
+        doc_dict = pickle.load(output_doc)
+        sorted_doc_inv_x = pickle.load(output_doc)
+        return words_in_doc, sorted_doc_inv_x
+        
 
     def save_dictionary_in_file(self, filename):
         
@@ -185,28 +216,14 @@ class TfIdf:
             new_data_dir = self.documents[i][1]
             dataset_dir = self.documents[i][2]
             doc_name = self.documents[i][3]
-            print("\n"+dataset_dir+doc_name)
+            #print("\n"+dataset_dir+doc_name)
             words_in_doc = self.documents[i][4]            
             doc_dict = self.documents[i][5]
             
             words = "# words: "+str(words_in_doc)
             dist_words = "# distinct words: "+str(len(doc_dict))
             
-            tfidf = {}
-            for j in range(0, len(doc_dict)):
-                item = doc_dict.items()[j]
-                w = item[0]
-                print("word: "+w)
-                tf = float(item[1]) / float(words_in_doc)
-                print("tf: "+str(tf))
-                df = float(self.corpus_dict.get(w))
-                print("df: "+str(df))
-                tfidf[w] = tf * log10(N / df)
-                print("tfidf: "+str(tfidf.get(w)))
-                
-            sorted_doc_inv_x = sorted(tfidf.items(), key=operator.itemgetter(1), reverse=True)
-            #sorted_inv_x.reverse()
-            #print(sorted_x)
+            sorted_doc_inv_x = self.tfidf_score(doc_dict, words_in_doc, N)
         
             header = "Rank - Word - tfidf"
             info_str = ""
@@ -214,7 +231,7 @@ class TfIdf:
                 doc_item = sorted_doc_inv_x[j]
                 info = str(j+1)+" "+doc_item[0]+" "+str(doc_item[1])
                 info_str = info_str+info+"\n"
-                print(info)
+                #print(info)
                    
            
             # save tfidf dictionary in respective file
@@ -229,7 +246,22 @@ class TfIdf:
                 
         return sorted_x
     
-    
+    def tfidf_score(self, doc_dict, words_in_doc, N):
+        tfidf = {}
+        for j in range(0, len(doc_dict)):
+            item = doc_dict.items()[j]
+            w = item[0]
+            #print("word: "+w)
+            tf = float(item[1]) / float(words_in_doc)
+            #print("tf: "+str(tf))
+            df = float(self.corpus_dict.get(w))
+            #print("df: "+str(df))
+            tfidf[w] = tf * log10(N / df)
+            #print("tfidf: "+str(tfidf.get(w)))
+                
+        sorted_doc_inv_x = sorted(tfidf.items(), key=operator.itemgetter(1), reverse=True)
+        return sorted_doc_inv_x            
+        
     def similarities(self, list_of_words):
         """Returns a list of all the [docname, similarity_score] pairs relative to a
 list of words.
