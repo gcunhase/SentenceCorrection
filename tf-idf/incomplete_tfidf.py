@@ -14,6 +14,8 @@ import tfidf
 import copy, os
 import re, glob
 import random
+from math import floor
+from timeit import default_timer as timer
 
 CORRECT_ENGLISH_FILENAME = "newstest2013_small20.en"
 
@@ -53,9 +55,9 @@ def save_dict_fromMultipleFiles_on_pickle_and_file(data_dir, cnn_dir, dailymail_
 
     # Save dictionary
     print("Saving dictionary...")
-    dictionary_x = table.save_dictionary(data_dir+DICT_FILENAME, "both")
-    return dictionary_x
-
+    table.save_dictionary(data_dir+DICT_FILENAME, "both")
+    return new_data_dir
+    
 def save_dict_on_pickle_and_file():
     table = tfidf.TfIdf()
     table.add_docs_from_file(INPUT_NEWS_FILENAME)
@@ -67,6 +69,13 @@ def load_dict_from_pickle(data_dir):
     total_number_words, corpus_dict, sorted_x, documents = table.load_dictionary_from_pickle(data_dir+DICT_PICKLE_FILENAME)
     #sorted_x.reverse()
     return total_number_words, corpus_dict, sorted_x, documents
+        
+def load_single_file_dict_from_pickle(new_data_dir, dataset_dir, filename):
+    table = tfidf.TfIdf()
+    words_in_doc, sorted_doc_inv_x = table.load_single_file_dictionary_from_pickle(new_data_dir, dataset_dir, filename)
+    #sorted_x.reverse()
+    return words_in_doc, sorted_doc_inv_x
+        
         
 def get_datasets_missing_simple_words(corpus_dict, sorted_x, top_words):
     print("Dataset SIMPLE words")
@@ -95,7 +104,7 @@ def get_datasets_missing_words(corpus_dict, vec_x, correct_english_path, missing
    
 def get_datasets_missing_words_from_sentences(data, vec_x, top_words):
     '''
-	data = collection/array of sentences.
+    data = collection/array of sentences.
     '''
     count = 0
     full_final_sentence = ""
@@ -138,69 +147,68 @@ def get_missing_dataset(vec_x, top_words, data_dir, new_data_dir, stories_dir):
 
     files = [f for f in os.listdir(data_dir+stories_dir) if f.endswith('.story')]
     for i in range(0, len(files)):
-	print("File %d: %s" % (i, files[i]))
+        print("File %d: %s" % (i, files[i]))
         #DONE: read sentences in file, break when you read first @highlight
-	tag = "@highlight"
-	f = open(data_dir+stories_dir+files[i], 'r')
-	f_new = open(new_data_dir+stories_dir+files[i], 'w')
-	sentences = f.read().split("\n")
-	selected_sentences = []
+        tag = "@highlight"
+        f = open(data_dir+stories_dir+files[i], 'r')
+        f_new = open(new_data_dir+stories_dir+files[i], 'w')
+        sentences = f.read().split("\n")
+        selected_sentences = []
         j_break = 0
-	for j in range(0, len(sentences)):
-	    if (tag in sentences[j]):
-             j_break = j
-             break;
-	    else:
-             #missing_filename = same as correct_english_filename, differing only on data_dir
-             selected_sentences.append(sentences[j])
+        for j in range(0, len(sentences)):
+            if (tag in sentences[j]):
+                 j_break = j
+                 break;
+            else:
+                 #missing_filename = same as correct_english_filename, differing only on data_dir
+                 selected_sentences.append(sentences[j])
 
         full_final_sentences = get_datasets_missing_words_from_sentences(selected_sentences, vec_x, top_words)
-	
-	#@highlight is not modified
-	for j in range(j_break, len(sentences)):
-	    full_final_sentences = full_final_sentences+"\n"+sentences[j]
-        
-	#print(full_final_sentences)
+    
+        #@highlight is not modified
+        for j in range(j_break, len(sentences)):
+            full_final_sentences = full_final_sentences+"\n"+sentences[j]
+            
+        #print(full_final_sentences)
         f_new.write(full_final_sentences)
 
-	f.close()
-	f_new.close()
+    f.close()
+    f_new.close()
      
 
-def get_news_and_abstract_files(data_dir, stories_dir):
+def get_news_and_abstract_files(data_dir, new_data_dir_abs_news, stories_dir):
     
-    new_data_dir_abs_news = get_new_data_dir_name(data_dir, "-abs-news")
     if not os.path.exists(new_data_dir_abs_news+stories_dir):
         os.makedirs(new_data_dir_abs_news+stories_dir)
     
     files = [f for f in os.listdir(data_dir+stories_dir) if f.endswith('.story')]
     for i in range(0, len(files)):
-	 tag = "@highlight"
-	 f = open(data_dir+stories_dir+files[i], 'r')
-	 f_news = open(new_data_dir_abs_news+stories_dir+files[i].split('.story')[0]+"-news.story", 'w')
-	 f_abs = open(new_data_dir_abs_news+stories_dir+files[i].split('.story')[0]+"-abs.story", 'w')
-	 sentences = f.read().split("\n")
-	 news_sentences = ""
-	 j_break = 0
-	 for j in range(0, len(sentences)):
-	    if (tag in sentences[j]):
+     tag = "@highlight"
+     f = open(data_dir+stories_dir+files[i], 'r')
+     f_news = open(new_data_dir_abs_news+stories_dir+files[i].split('.story')[0]+"-news.story", 'w')
+     f_abs = open(new_data_dir_abs_news+stories_dir+files[i].split('.story')[0]+"-abs.story", 'w')
+     sentences = f.read().split("\n")
+     news_sentences = ""
+     j_break = 0
+     for j in range(0, len(sentences)):
+        if (tag in sentences[j]):
              j_break = j
              break;
-	    else:
+        else:
              news_sentences = news_sentences + "\n" + sentences[j]
 
-	 abs_sentences = ""
-	 for j in range(j_break, len(sentences)):
+     abs_sentences = ""
+     for j in range(j_break, len(sentences)):
           if (tag not in sentences[j]):
-	         abs_sentences = abs_sentences+"\n"+sentences[j]
+             abs_sentences = abs_sentences+"\n"+sentences[j]
         
-	 #print(full_final_sentences)
-	 f_news.write(news_sentences)
-	 f_abs.write(abs_sentences)  
+     #print(full_final_sentences)
+     f_news.write(news_sentences)
+     f_abs.write(abs_sentences)  
 
-	 f.close()
-	 f_news.close()
-	 f_abs.close()
+     f.close()
+     f_news.close()
+     f_abs.close()
 
 def get_new_data_dir_name(data_dir, extension):
     data_dir_split = data_dir.split("/")
@@ -212,7 +220,7 @@ def get_new_data_dir_name(data_dir, extension):
     return new_data_dir
 
 
-def get_datasets_fromMultipleFiles_missing_simple_words(corpus_dict, sorted_x, top_words, data_dir, cnn_dir, dailymail_dir):
+def get_datasets_fromMultipleFiles_missing_simple_words(sorted_x, top_words, data_dir, cnn_dir, dailymail_dir):
     print("Dataset SIMPLE words - multiple files")
     sorted_inv_x = copy.copy(sorted_x)
     sorted_inv_x.reverse()
@@ -224,13 +232,14 @@ def get_datasets_fromMultipleFiles_missing_simple_words(corpus_dict, sorted_x, t
     get_datasets_fromMultipleFiles_missing_words(vec_x, top_words, data_dir, new_data_dir, cnn_dir, dailymail_dir)
     
 
-def get_datasets_fromMultipleFiles_missing_complex_words(corpus_dict, sorted_x, top_words, data_dir, cnn_dir, dailymail_dir):
+def get_datasets_fromMultipleFiles_missing_complex_words(sorted_x, top_words, data_dir, cnn_dir, dailymail_dir):
     print("Dataset COMPLEX words - multiple files")
     vec_x = copy.copy(sorted_x)
     
     #DONE: new folder data-missingcomplex/
     new_data_dir = get_new_data_dir_name(data_dir, "-missingcomplex-"+str(PERCENTAGE_ALLOW_MISSING_WORD)+"-"+str(PERCENTAGE_ALLOW_MISSING_SUBSTRING)+"rand-"+str(top_words)+"top")
     get_datasets_fromMultipleFiles_missing_words(vec_x, top_words, data_dir, new_data_dir, cnn_dir, dailymail_dir)
+
 
 def get_datasets_fromMultipleFiles_missing_words(vec_x, top_words, data_dir, new_data_dir, cnn_dir, dailymail_dir):
     # Run through all files in files_cnn  
@@ -244,6 +253,133 @@ def get_datasets_fromMultipleFiles_missing_words(vec_x, top_words, data_dir, new
         os.makedirs(new_data_dir+dailymail_dir)
     print("Modifying Daily Mail dataset...")
     get_missing_dataset(vec_x, top_words, data_dir, new_data_dir, dailymail_dir) 
+
+
+
+
+'''
+    Real TF-IDF
+'''
+
+
+def get_datasets_fromMultipleFiles_missing_complex_words_fixedRatioPercentage(percentage_missing_words_per_file, data_dir, docs_dic_dir, cnn_dir, dailymail_dir):
+    print("Dataset COMPLEX words - multiple files - percentage")
+    
+    new_data_dir = get_new_data_dir_name(data_dir, "-missingcomplex-"+str(percentage_missing_words_per_file)+"perc")
+    get_datasets_fromMultipleFiles_missing_words_fixedRatioPercentage(percentage_missing_words_per_file, data_dir, docs_dic_dir, new_data_dir, cnn_dir, dailymail_dir)
+
+def get_datasets_fromMultipleFiles_missing_words_fixedRatioPercentage(percentage_missing_words_per_file, data_dir, docs_dic_dir, new_data_dir, cnn_dir, dailymail_dir):
+    # Run through all files in files_cnn  
+    if not os.path.exists(new_data_dir+cnn_dir):
+        os.makedirs(new_data_dir+cnn_dir)
+    print("Modifying CNN dataset...")  
+    get_missing_dataset_fixedRatioPercentage(percentage_missing_words_per_file, data_dir, docs_dic_dir, new_data_dir, cnn_dir)
+    
+    # Run through all files in files_dailymail  
+    if not os.path.exists(new_data_dir+dailymail_dir):
+        os.makedirs(new_data_dir+dailymail_dir)
+    print("Modifying Daily Mail dataset...")
+    get_missing_dataset_fixedRatioPercentage(percentage_missing_words_per_file, data_dir, docs_dic_dir, new_data_dir, dailymail_dir) 
+
+
+def get_missing_dataset_fixedRatioPercentage(percentage_missing_words_per_file, data_dir, docs_dic_dir, new_data_dir, stories_dir):
+    files = [f for f in os.listdir(data_dir+stories_dir) if f.endswith('.story')]
+    all_files_log_info = ""
+    for i in range(0, len(files)):
+       filename = files[i] 
+       print("File %d: %s" % (i, filename))
+       #DONE: read sentences in file, break when you read first @highlight
+       tag = "@highlight"
+       f = open(data_dir+stories_dir+filename, 'r')
+       f_new = open(new_data_dir+stories_dir+filename, 'w')
+   
+       words_in_doc, sorted_doc_inv_x = load_single_file_dict_from_pickle(docs_dic_dir, stories_dir, filename)
+       
+   
+       sentences = f.read().split("\n")
+       selected_sentences = []
+       j_break = 0
+       for j in range(0, len(sentences)):
+          if (tag in sentences[j]):
+              j_break = j
+              break;
+          else:
+              #missing_filename = same as correct_english_filename, differing only on data_dir
+              selected_sentences.append(sentences[j])
+    
+       full_final_sentences, log_info = get_datasets_missing_words_from_sentences_fixedRatioPercentage(selected_sentences, percentage_missing_words_per_file, words_in_doc, sorted_doc_inv_x)
+       all_files_log_info = all_files_log_info + "File: "+filename+"\n"+log_info+"\n"
+       
+       #@highlight is not modified
+       for j in range(j_break, len(sentences)):
+          full_final_sentences = full_final_sentences+"\n"+sentences[j]
+        
+       #print(full_final_sentences)
+       f_new.write(full_final_sentences)
+
+
+       f.close()
+       f_new.close()
+    
+    print("Saving log missing...")
+    f_log = open(new_data_dir+"log_missing_"+stories_dir.split("/")[0]+".txt", 'w')    
+    f_log.write(all_files_log_info)
+    f_log.close()
+    
+    
+    
+def get_datasets_missing_words_from_sentences_fixedRatioPercentage(data, percentage_missing_words_per_file, words_in_doc, sorted_doc_inv_x):
+    '''
+     data = collection/array of sentences.
+    '''
+    
+    words_to_be_missing = int(min(floor(percentage_missing_words_per_file*words_in_doc), words_in_doc))
+    allow_missing = 1
+    count = 0
+    count_missing_words = 0
+    full_final_sentence = ""
+    for sentence in data:
+        sentence = sentence.lower()
+        #print("SENTENCE: "+sentence+"\n")
+        for i in range(0, words_to_be_missing):
+            word = sorted_doc_inv_x[i][0]
+            #print("\nWORD "+str(i)+": "+ word)
+            exact_word = '\\b'+word+'\\b'
+            ## Subs all words in sentence                   
+            sentence, n = re.subn(exact_word, '', sentence, flags=re.IGNORECASE)
+            count_missing_words = count_missing_words + n                    
+            
+            
+            #sent_split = re.split(exact_word, sentence)
+            #final_sentence = sent_split[0]                
+            #for j in range(1, len(sent_split)-1):
+            #    if (random.random() < allow_missing): # missing word
+            #        print("missing")
+            #        final_sentence = final_sentence+sent_split[j]
+            #        count_missing_words = count_missing_words + 1
+            #    else: # scramble word
+            #        final_sentence = final_sentence+word+sent_split[j]
+            #if (len(sent_split)-1 > 0):
+            #   final_sentence = final_sentence+sent_split[len(sent_split)-1]                
+            #sentence = final_sentence                 
+            
+            
+        if (count != 0): # Avoids last paragraph to have an extra empty line
+            sentence = "\n"+sentence
+        full_final_sentence = full_final_sentence+sentence
+        
+        count = count+1
+
+    log_info = "Words in doc: "+str(words_in_doc)+" - Min words missing: "+str(words_to_be_missing)+" - Missing: "+str(count_missing_words)
+    #print(log_info)
+    #TODO: save in log file min missing words and actual missing words
+
+    return full_final_sentence, log_info
+
+
+'''
+    Single vs Multiple files
+'''
     
 def single_file():
     ## Data from pickle
@@ -280,33 +416,44 @@ def multiple_files():
     
     ## Subset of data
     #n_files = 100 
-    data_dir = "../../data-1/"
+    data_dir = "../../data-100/"
     #multiple_files_sample(data_dir, cnn_dir, n_files)
     #multiple_files_sample(data_dir, dailymail_dir, n_files)
 
-    get_news_and_abstract_files(data_dir, cnn_dir)
-    get_news_and_abstract_files(data_dir, dailymail_dir)
+    ## Test vocab from news and abstract
+    #data_dir = "../../data-1/"
+    #new_data_dir_abs_news = get_new_data_dir_name(data_dir, "-abs-news")
+    #get_news_and_abstract_files(data_dir, new_data_dir_abs_news, cnn_dir)
+    #get_news_and_abstract_files(data_dir, new_data_dir_abs_news, dailymail_dir)
+    #save_dict_fromMultipleFiles_on_pickle_and_file(new_data_dir_abs_news, cnn_dir, dailymail_dir)
+    
+    
+    ## Realf TF-IDF
+    # Saves corpus dictionary and also each .story tf-idf files in data_dir[-tfidf]/cnn/stories/[filename].tfidf
+    start_time = timer()
+    new_data_dir = save_dict_fromMultipleFiles_on_pickle_and_file(data_dir, cnn_dir, dailymail_dir)
+    print(new_data_dir)
 
-    data_dir = "../../data-1-abs-news/"
-    save_dict_fromMultipleFiles_on_pickle_and_file(data_dir, cnn_dir, dailymail_dir)
-    
-    
-    
-    
-    
-'''
-    total_number_words, corpus_dict, sorted_x = load_dict_from_pickle(data_dir)
+    total_number_words, corpus_dict, sorted_x, documents = load_dict_from_pickle(data_dir)
     
     ## Simple dataset
-    top_words = 100
-    get_datasets_fromMultipleFiles_missing_simple_words(corpus_dict, sorted_x, top_words, data_dir, cnn_dir, dailymail_dir)
+    #top_words = 100
+    #get_datasets_fromMultipleFiles_missing_simple_words(sorted_x, top_words, data_dir, cnn_dir, dailymail_dir)
+    
+    ## Complex dataset
+    percentage_missing_words_per_file = 0.1
+    docs_dic_dir = documents[0][1]
+    get_datasets_fromMultipleFiles_missing_complex_words_fixedRatioPercentage(percentage_missing_words_per_file, data_dir, docs_dic_dir, cnn_dir, dailymail_dir)
 
+    end_time = timer() - start_time
+    print("Program took %f seconds" % end_time)    
+    
+    '''    
     ## Complex dataset
     ##top_words_complex = len(corpus_dict) - top_words*top_words #min(len(corpus_dict), top_words*top_words)
     #top_words_complex = 100000 #len(corpus_dict) = 503,680
-    #get_datasets_fromMultipleFiles_missing_complex_words(corpus_dict, sorted_x, top_words_complex, data_dir, cnn_dir, dailymail_dir)
-    #print("Total number words: "+str(len(corpus_dict))+"; Top words complex: "+str(top_words_complex))
-'''
+    #get_datasets_fromMultipleFiles_missing_complex_words(sorted_x, top_words_complex, data_dir, cnn_dir, dailymail_dir)
+    '''
 
 def main():
     ## Single media dataset
