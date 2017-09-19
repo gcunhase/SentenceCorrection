@@ -5,6 +5,7 @@
 #
 # Date: July 30th 2017
 # Modified: Sep 5th 2017 for SignalMedia News2News Dataset
+# Modified: Sep 19th for real tf-idf (before we were using just df)
 # 
 
 
@@ -35,17 +36,20 @@ def save_dict_fromMultipleFiles_on_pickle_and_file(data_dir, cnn_dir, dailymail_
     table = tfidf.TfIdf()
 
     #DONE: get all files from cnn_dir and dailymail_dir    
-    files_cnn = glob.glob(data_dir+cnn_dir+"*.story") #full path
-    files_dailymail = glob.glob(data_dir+dailymail_dir+"*.story")
-
+    #files_cnn = glob.glob(data_dir+cnn_dir+"*.story") #full path
+    #files_dailymail = glob.glob(data_dir+dailymail_dir+"*.story")
+    files_cnn = [f for f in os.listdir(data_dir+cnn_dir) if f.endswith('.story')] #relative path
+    files_dailymail = [f for f in os.listdir(data_dir+dailymail_dir) if f.endswith('.story')]
+    
+    new_data_dir = get_new_data_dir_name(data_dir, "-tfidf")
     # Adding files to dictionary
     print("Adding CNN files to dictionary...")
     for i in range(0, len(files_cnn)):
-        table.add_docs_from_file(files_cnn[i])
+        table.add_docs_from_file(data_dir, cnn_dir, files_cnn[i], new_data_dir)
         
     print("Adding Daily Mail files to dictionary...")
     for i in range(0, len(files_dailymail)):
-        table.add_docs_from_file(files_dailymail[i])
+        table.add_docs_from_file(data_dir, dailymail_dir, files_dailymail[i], new_data_dir)
 
     # Save dictionary
     print("Saving dictionary...")
@@ -60,9 +64,9 @@ def save_dict_on_pickle_and_file():
 
 def load_dict_from_pickle(data_dir):
     table = tfidf.TfIdf()
-    total_number_words, corpus_dict, sorted_x = table.load_dictionary_from_pickle(data_dir+DICT_PICKLE_FILENAME)
+    total_number_words, corpus_dict, sorted_x, documents = table.load_dictionary_from_pickle(data_dir+DICT_PICKLE_FILENAME)
     #sorted_x.reverse()
-    return total_number_words, corpus_dict, sorted_x
+    return total_number_words, corpus_dict, sorted_x, documents
         
 def get_datasets_missing_simple_words(corpus_dict, sorted_x, top_words):
     print("Dataset SIMPLE words")
@@ -137,18 +141,18 @@ def get_missing_dataset(vec_x, top_words, data_dir, new_data_dir, stories_dir):
 	print("File %d: %s" % (i, files[i]))
         #DONE: read sentences in file, break when you read first @highlight
 	tag = "@highlight"
-        f = open(data_dir+stories_dir+files[i], 'r')
+	f = open(data_dir+stories_dir+files[i], 'r')
 	f_new = open(new_data_dir+stories_dir+files[i], 'w')
 	sentences = f.read().split("\n")
 	selected_sentences = []
         j_break = 0
 	for j in range(0, len(sentences)):
 	    if (tag in sentences[j]):
-                j_break = j
-		break;
+             j_break = j
+             break;
 	    else:
-		#missing_filename = same as correct_english_filename, differing only on data_dir
-        	selected_sentences.append(sentences[j])
+             #missing_filename = same as correct_english_filename, differing only on data_dir
+             selected_sentences.append(sentences[j])
 
         full_final_sentences = get_datasets_missing_words_from_sentences(selected_sentences, vec_x, top_words)
 	
@@ -161,8 +165,42 @@ def get_missing_dataset(vec_x, top_words, data_dir, new_data_dir, stories_dir):
 
 	f.close()
 	f_new.close()
+     
 
+def get_news_and_abstract_files(data_dir, stories_dir):
     
+    new_data_dir_abs_news = get_new_data_dir_name(data_dir, "-abs-news")
+    if not os.path.exists(new_data_dir_abs_news+stories_dir):
+        os.makedirs(new_data_dir_abs_news+stories_dir)
+    
+    files = [f for f in os.listdir(data_dir+stories_dir) if f.endswith('.story')]
+    for i in range(0, len(files)):
+	 tag = "@highlight"
+	 f = open(data_dir+stories_dir+files[i], 'r')
+	 f_news = open(new_data_dir_abs_news+stories_dir+files[i].split('.story')[0]+"-news.story", 'w')
+	 f_abs = open(new_data_dir_abs_news+stories_dir+files[i].split('.story')[0]+"-abs.story", 'w')
+	 sentences = f.read().split("\n")
+	 news_sentences = ""
+	 j_break = 0
+	 for j in range(0, len(sentences)):
+	    if (tag in sentences[j]):
+             j_break = j
+             break;
+	    else:
+             news_sentences = news_sentences + "\n" + sentences[j]
+
+	 abs_sentences = ""
+	 for j in range(j_break, len(sentences)):
+          if (tag not in sentences[j]):
+	         abs_sentences = abs_sentences+"\n"+sentences[j]
+        
+	 #print(full_final_sentences)
+	 f_news.write(news_sentences)
+	 f_abs.write(abs_sentences)  
+
+	 f.close()
+	 f_news.close()
+	 f_abs.close()
 
 def get_new_data_dir_name(data_dir, extension):
     data_dir_split = data_dir.split("/")
@@ -236,17 +274,27 @@ def multiple_files_sample(data_dir, dataset_dir, n_files):
 
 def multiple_files():
 
-    data_dir = "/data/Gwena/cnn-dm-data/" #"../../data/"
+    #data_dir = "/data/Gwena/cnn-dm-data/" #"../../data/"
     cnn_dir = "cnn/stories/"
     dailymail_dir = "dailymail/stories/"
     
     ## Subset of data
-    #n_files = 1000 
-    #data_dir = "../../data/"
+    #n_files = 100 
+    data_dir = "../../data-1/"
     #multiple_files_sample(data_dir, cnn_dir, n_files)
     #multiple_files_sample(data_dir, dailymail_dir, n_files)
 
-    #save_dict_fromMultipleFiles_on_pickle_and_file(data_dir, cnn_dir, dailymail_dir)
+    get_news_and_abstract_files(data_dir, cnn_dir)
+    get_news_and_abstract_files(data_dir, dailymail_dir)
+
+    data_dir = "../../data-1-abs-news/"
+    save_dict_fromMultipleFiles_on_pickle_and_file(data_dir, cnn_dir, dailymail_dir)
+    
+    
+    
+    
+    
+'''
     total_number_words, corpus_dict, sorted_x = load_dict_from_pickle(data_dir)
     
     ## Simple dataset
@@ -258,7 +306,7 @@ def multiple_files():
     #top_words_complex = 100000 #len(corpus_dict) = 503,680
     #get_datasets_fromMultipleFiles_missing_complex_words(corpus_dict, sorted_x, top_words_complex, data_dir, cnn_dir, dailymail_dir)
     #print("Total number words: "+str(len(corpus_dict))+"; Top words complex: "+str(top_words_complex))
-
+'''
 
 def main():
     ## Single media dataset
