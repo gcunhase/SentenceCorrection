@@ -33,7 +33,10 @@ PERCENTAGE_ALLOW_MISSING_SUBSTRING = 0.3 #0.6
 #PERCENTAGE_ALLOW_MISSING_WORD = 0.6
 #PERCENTAGE_ALLOW_MISSING_SUBSTRING = 0.4
 
-
+'''
+   Functions to save and load dictionary, same as incomplete_tfidf.py
+   TODO: Maybe add to TF-IDF?
+'''
 def save_dict_fromMultipleFiles_on_pickle_and_file(data_dir, cnn_dir, dailymail_dir):
     table = tfidf.TfIdf()
 
@@ -102,9 +105,16 @@ def get_datasets_missing_words(corpus_dict, vec_x, correct_english_path, missing
     f.close()
     f_simple.close()
    
+'''
+   Functions to get the datasets
+'''
 def get_datasets_missing_words_from_sentences(data, vec_x, top_words):
     '''
-    data = collection/array of sentences.
+       Input:
+	      data: collection/array of sentences.
+	      vec_x: ranked words
+	      top_words: top words to consider
+          #ratio_missing: ratio of missing words in dataset, say 10%
     '''
     count = 0
     full_final_sentence = ""
@@ -144,7 +154,10 @@ def get_datasets_missing_words_from_sentences(data, vec_x, top_words):
     return full_final_sentence        
 
 def get_missing_dataset(vec_x, top_words, data_dir, new_data_dir, stories_dir):
-
+    '''
+       Gets part of string that needs to be modified (before @highlight)
+    '''
+    
     files = [f for f in os.listdir(data_dir+stories_dir) if f.endswith('.story')]
     for i in range(0, len(files)):
         print("File %d: %s" % (i, files[i]))
