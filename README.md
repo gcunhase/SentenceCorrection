@@ -6,7 +6,7 @@ NMT: numbers and proper nouns don't need to be considered. If you can translate 
 ## Approach
 * Third Dataset Solution
 * ICONIP 2017 paper comparing GRU and MTGRU's performance when applied to the Sentence Correction issue (NOT SUBMITTED)
-* WCCI/IJCNN 2018 in Rio de Janeiro (SUBMITTED)
+* WCCI/IJCNN 2018 in Rio de Janeiro (ACCEPTED)
 
 ## New idea
 * Refer to the [GRU+Attention model](https://github.com/gcunhase/PaperNotes/blob/master/notes/gruatt.md):
