@@ -2,7 +2,7 @@
 The goal of this project is to correct wrong english sentences
 
 * ICONIP 2017: compare GRU and MTGRU's performance (Not Submitted)
-* WCCI/IJCNN 2018: compare GRU, LSTM, RNN and MTGRU (Submitted and **Accepted**)
+* WCCI/IJCNN 2018: compare GRU, LSTM, RNN and MTGRU (Submitted and **Accepted**): [IEEE paper link](https://ieeexplore.ieee.org/abstract/document/8489499)
 * Check wiki page for more information
 
 ## 0. Dataset
