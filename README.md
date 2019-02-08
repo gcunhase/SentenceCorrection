@@ -1,12 +1,25 @@
 # Sentence Correction
 The goal of this project is to correct wrong english sentences
 
-NMT: numbers and proper nouns don't need to be considered. If you can translate *John loves Mary*, you can translate *Mary loves John*. If you can translate *Mary is 25 years old*, you can translate *Mary is 35 years old*.
+## Dataset
+* Third Dataset Solution: WMT'15 with POS-Tagging
+* [TODO]: how to create incomplete dataset
 
-## Approach
-* Third Dataset Solution
+## Running code
+* RNN
+
+* GRU
+
+* LSTM
+
+* MTLSTM
+
+## Results
+
+## Notes
 * ICONIP 2017 paper comparing GRU and MTGRU's performance when applied to the Sentence Correction issue (Not Submitted)
-* WCCI/IJCNN 2018 in Rio de Janeiro (Submitted and Accepted)
+* WCCI/IJCNN 2018 in Rio de Janeiro (Submitted and **Accepted**)
+* Check wiki page for more information
 
 ## Future Work
 * Refer to the [GRU+Attention model](https://github.com/gcunhase/PaperNotes/blob/master/notes/gruatt.md):
