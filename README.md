@@ -65,6 +65,8 @@ python translate_earlyStopping.py --auto_decode
 > Change paths to your generated and target text files if needed
 
 ## Results
+> Results for 3-layer models
+
 BLEU scores
 <p align="left">
 <img src="https://github.com/gcunhase/SentenceCorrection-WCCI2018/blob/master/images/3layer_models_bleu.png" width="450" alt="BLEU">
