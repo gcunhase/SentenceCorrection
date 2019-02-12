@@ -75,6 +75,8 @@ Generated sentences
 <img src="https://github.com/gcunhase/SentenceCorrection-WCCI2018/blob/master/images/3layer_models_sentences.png" width="600" alt="Generated Sentences">
 </p>
 
+Plotting train and test perplexity curves (Matlab): `./evaluation/graphs.m`
+
 ## Acknowledgement
 If you use this code please cite it as:
 ```
