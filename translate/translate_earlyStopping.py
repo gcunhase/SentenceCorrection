@@ -45,8 +45,8 @@ import numpy as np
 from six.moves import xrange  # pylint: disable=redefined-builtin
 import tensorflow as tf
 
-import data_utils
-import seq2seq_model
+import translate.data_utils as data_utils
+import translate.seq2seq_model as seq2seq_model
 from timeit import default_timer as timer
 
 
@@ -167,6 +167,8 @@ def create_model(session, forward_only):
     model.saver.restore(session, ckpt.model_checkpoint_path)
   else:
     print("Created model with fresh parameters.")
+    # Create train_dir
+    data_utils.ensure_dir(FLAGS.root_dir + FLAGS.train_dir)
     session.run(tf.global_variables_initializer())
   return model
 
@@ -467,7 +469,7 @@ if __name__ == "__main__":
   params_ckpt = "-"+str(FLAGS.max_epoch)+"steps-"+str(FLAGS.num_layers)+"layers-"+str(FLAGS.size)+"size"
   FLAGS.checkpoint_filename = FLAGS.checkpoint_filename.split(".txt")[0]+params_ckpt+".txt"
   FLAGS.checkpoint_filename_best = FLAGS.checkpoint_filename_best.split(".txt")[0]+params_ckpt+".txt"
-  CHECK_FILE = open(FLAGS.checkpoint_filename, 'w')
-  CHECK_FILE_BEST = open(FLAGS.checkpoint_filename_best, 'w')
+  CHECK_FILE = open(FLAGS.root_dir + FLAGS.train_dir + "/" + FLAGS.checkpoint_filename, 'w')
+  CHECK_FILE_BEST = open(FLAGS.root_dir + FLAGS.train_dir + "/" + FLAGS.checkpoint_filename_best, 'w')
 
   tf.app.run()

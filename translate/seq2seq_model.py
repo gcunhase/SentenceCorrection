@@ -26,7 +26,7 @@ from six.moves import xrange  # pylint: disable=redefined-builtin
 import tensorflow as tf
 from tensorflow.contrib.rnn.python.ops import core_rnn_cell_impl
 
-import data_utils
+import translate.data_utils as data_utils
 
 
 class Seq2SeqModel(object):

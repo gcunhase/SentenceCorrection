@@ -6,7 +6,7 @@ The goal of this project is to correct wrong english sentences
 * Check wiki page for more information
 
 ## 0. Requirements
-* Python 2.7
+* Python 2.7, NLTK
 * CUDA 8.0
 * CuDNN v5.0
 * Tensorflow 1.0.1
@@ -15,6 +15,7 @@ The goal of this project is to correct wrong english sentences
 sudo apt-get install cuda-8-0
 cd /tmp/tensorflow-pkg/; wget hhtp://storage.googleapis.com/tensorflow/linux/gpu/tensorflow_gpu-1.0.1-cp27-none-linux_x86_64.whl
 pip install --ignore-installed --upgrade tensorflow_gpu-1.0.1-cp27-none-linux_x86_64.whl
+pip install nltk
 ```
 
 ## 1. Dataset

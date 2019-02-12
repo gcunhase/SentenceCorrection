@@ -49,6 +49,11 @@ _WMT_ENFR_TRAIN_URL = "http://www.statmt.org/wmt10/training-giga-fren.tar"
 _WMT_ENFR_DEV_URL = "http://www.statmt.org/wmt15/dev-v2.tgz"
 
 
+def ensure_dir(dir_name):
+  if os.path.exists(dir_name):
+    os.mkdir(dir_name)
+
+
 def maybe_download(directory, filename, url):
   """Download filename from url unless it's already in directory."""
   if not os.path.exists(directory):
