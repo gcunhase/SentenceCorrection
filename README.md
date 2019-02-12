@@ -37,15 +37,15 @@ pip install --ignore-installed --upgrade tensorflow_gpu-1.0.1-cp27-none-linux_x8
 
 * Arguments
 
-| Argument     | Type    | Property                           |
-| ------------ | ------- | ---------------------------------- |
-| `--use_rnn`    | Boolean | Use RNN                            |
-| `--use_lstm`   | Boolean | Use LSTM                           |
-| `--use_mtgru`  | Boolean | Use MTGRU                          |
-| `--use_mtlstm` | Boolean | Use MTLSTM                         |
-| `--train_dir`  | String  | Directory to save model checkpoint |
-| `--checkpoint_filename`  | String  | Filename to save model checkpoint |
-| `--checkpoint_filename_best`  | String  | Filename to save best model checkpoint |
+| Argument                     | Type    | Description                            |
+| ---------------------------- | ------- | -------------------------------------- |
+| `--use_rnn`                  | Boolean | Use RNN                                |
+| `--use_lstm`                 | Boolean | Use LSTM                               |
+| `--use_mtgru`                | Boolean | Use MTGRU                              |
+| `--use_mtlstm`               | Boolean | Use MTLSTM                             |
+| `--train_dir`                | String  | Directory to save model checkpoint     |
+| `--checkpoint_filename`      | String  | Filename to save model checkpoint      |
+| `--checkpoint_filename_best` | String  | Filename to save best model checkpoint |
 > Check *translate_earlyStopping.py* for more arguments
 
 > Example MTGRU: `python translate_earlyStopping.py --use_mtgru=True --train_dir=trainMTGRU --checkpoint_filename=checkpoint_perplexities_mtgru.txt --checkpoint_filename_best=checkpoint_perplexities_mtgru_best.txt` 
@@ -65,19 +65,17 @@ python translate_earlyStopping.py --auto_decode
 > Change paths to your generated and target text files if needed
 
 ## Results
-* BLEU scores:
+BLEU scores
 <p align="left">
-<img src="https://github.com/gcunhase/SentenceCorrection-WCCI2018/blob/master/images/3layer_models_bleu.png" width="500" alt="BLEU">
+<img src="https://github.com/gcunhase/SentenceCorrection-WCCI2018/blob/master/images/3layer_models_bleu.png" width="450" alt="BLEU">
 </p>
 
-* Generated sentences: 
+Generated sentences
 <p align="left">
-<img src="https://github.com/gcunhase/SentenceCorrection-WCCI2018/blob/master/images/3layer_models_sentences.png" width="500" alt="Generated Sentences">
+<img src="https://github.com/gcunhase/SentenceCorrection-WCCI2018/blob/master/images/3layer_models_sentences.png" width="600" alt="Generated Sentences">
 </p>
 
 ## Acknowledgement
-Multiple Timescale code based on [Singh's work](https://github.com/dennissm/mtgru).
-
 If you use this code please cite it as:
 ```
 @inproceedings{sergio2018temporal,
@@ -89,3 +87,5 @@ If you use this code please cite it as:
   organization={IEEE}
 }
 ```
+
+Multiple Timescale code based on [Singh's work](https://github.com/dennissm/mtgru).
