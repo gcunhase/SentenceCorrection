@@ -21,8 +21,8 @@ pip install nltk
 ## 1. Dataset
 * WMT'15 with POS-Tagging (Third Dataset Solution)
 * [Option 1] Download incomplete data
-    * Download [incomplete dataset](https://1drv.ms/f/s!Ai9Q4WIAUMvPhFhm_AHR9kMe21lpvv): `input1.en` and `output.fr`
-    * Separate train and test: `cd ./datasets && python separate_train_test_data.py`
+    * Download [incomplete dataset](https://1drv.ms/f/s!Ai9Q4WIAUMvPhFhm_AHR9kMe21lpvv) to `IncompleteData` folder: `input1.en` and `output1.fr`
+    * Separate train and test: `cd ./datasets && python separate_train_test_data.py --data_dir IncompleteData/train-incompleteDataPOS-15_20words --input_filename input1.en --output_filename output1.fr --train_perc 95`
 * [Option 2] Create your own incomplete dataset
     * Download [WMT dataset](http://www.statmt.org/wmt10/training-giga-fren.tar)
     * [TODO] Add script to make incomplete data
