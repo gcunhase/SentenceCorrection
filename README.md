@@ -1,12 +1,16 @@
-# Sentence Correction
-The goal of this project is to correct wrong english sentences
+# About
+Tensorflow code referent to [*"Temporal Hierarchies in Sequence to Sequence for Sentence Correction"*](https://ieeexplore.ieee.org/abstract/document/8489499) (IEEE WCCI 2018)
 
-* ICONIP 2017: compare GRU and MTGRU's performance (Not Submitted)
-* WCCI/IJCNN 2018 [[IEEE paper link](https://ieeexplore.ieee.org/abstract/document/8489499)]: compare GRU, LSTM, RNN and MTGRU (Submitted and **Accepted**)
-* Check wiki page for more information
+Comparison of GRU, LSTM, RNN and MTGRU in the English sentence correction task. 
 
-## 0. Requirements
-* Python 2.7, NLTK
+Check wiki page for more information
+
+## Contents
+
+| [Dataset](#1.-dataset) | [Training](#2.-training) | [Testing](#3.-testing) | [Results](#results) |
+
+## Dependencies
+* Python 2.7, NLTK, progressbar2
 * CUDA 8.0
 * CuDNN v5.0
 * Tensorflow 1.0.1
@@ -15,26 +19,22 @@ The goal of this project is to correct wrong english sentences
 sudo apt-get install cuda-8-0
 cd /tmp/tensorflow-pkg/; wget hhtp://storage.googleapis.com/tensorflow/linux/gpu/tensorflow_gpu-1.0.1-cp27-none-linux_x86_64.whl
 pip install --ignore-installed --upgrade tensorflow_gpu-1.0.1-cp27-none-linux_x86_64.whl
-pip install nltk
+pip install -r requirements.txt
 ```
 
-## 1. Dataset
+## How to Use
+### 1. Dataset
 * WMT'15 with POS-Tagging (Third Dataset Solution)
-* [Option 1] Download incomplete data
-    * Download [incomplete dataset](https://1drv.ms/f/s!Ai9Q4WIAUMvPhFhm_AHR9kMe21lpvv) to `IncompleteData` folder: `input1.en` and `output1.fr`
-    * Separate train and test: `cd ./datasets && python separate_train_test_data.py --data_dir IncompleteData/train-incompleteDataPOS-15_20words --input_filename input1.en --output_filename output1.fr --train_perc 95`
-* [Option 2] Create your own incomplete dataset
-    * Download [WMT dataset](http://www.statmt.org/wmt10/training-giga-fren.tar)
-    * [TODO] Add script to make incomplete data
+* [Dataset README](./datasets/README)
 
-## 2. Training
-* Follow setup in Wiki for MT model
-* In *'./translate/'*, run following script for GRU model:
+### 2. Training
+* Follow [setup in Wiki](https://github.com/gcunhase/SentenceCorrection-WCCI2018/wiki/MTGRU) for MTGRUCell and MultiMTRNNCell
+* In *`./translate/`* folder, run following script for GRU model:
     ```
     python translate_earlyStopping.py --train_dir=trainGRU --checkpoint_filename=checkpoint_perplexities_gru.txt --checkpoint_filename_best=checkpoint_perplexities_gru_best.txt
     ```
     
-* Pre-trained 3-layer models are currently too big to be uploaded   
+* Note: Pre-trained 3-layer models are currently too big to be uploaded   
 
 * Arguments
 
@@ -51,34 +51,33 @@ pip install nltk
 
 > Example MTGRU: `python translate_earlyStopping.py --use_mtgru=True --train_dir=trainMTGRU --checkpoint_filename=checkpoint_perplexities_mtgru.txt --checkpoint_filename_best=checkpoint_perplexities_mtgru_best.txt` 
 
-## 3. Testing
-In *'./translate/'*:
+### 3. Testing
+In *`./translate/`* folder:
 ```
 python translate_earlyStopping.py --auto_decode
 ```
 > Use all the same parameters used during training of the model
 
-## 4. Evaluation
+### 4. Evaluation
 * Clone [nlp-metrics](https://github.com/harpribot/nlp-metrics) to *'./evaluation/'* for use in `tester_allSentencesOneFile.py`
-> Change import path if necessary
+    > Change import path if necessary
 
 * Run: `./evaluation/scores.sh`
-> Change paths to your generated and target text files if needed
+    > Change paths to your generated and target text files if needed
+
+* Plotting train and test perplexity curves (Matlab): `./evaluation/graphs.m`
 
 ## Results
-> Results for 3-layer models
+Results for 3-layer models
 
-BLEU scores
 <p align="left">
-<img src="https://github.com/gcunhase/SentenceCorrection-WCCI2018/blob/master/images/3layer_models_bleu.png" width="450" alt="BLEU">
+<img src="https://github.com/gcunhase/SentenceCorrection-WCCI2018/blob/master/images/3layer_models_bleu.png" width="450" alt="BLEU scores">
 </p>
 
 Generated sentences
 <p align="left">
 <img src="https://github.com/gcunhase/SentenceCorrection-WCCI2018/blob/master/images/3layer_models_sentences.png" width="600" alt="Generated Sentences">
 </p>
-
-Plotting train and test perplexity curves (Matlab): `./evaluation/graphs.m`
 
 ## Acknowledgement
 If you use this code please cite it as:
