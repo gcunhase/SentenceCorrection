@@ -2,3 +2,5 @@
 .idea/*
 datasets/IncompleteData*/*
 venv*/*
+*.gz
+*.tar
