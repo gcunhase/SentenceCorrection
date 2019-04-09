@@ -25,7 +25,7 @@ pip install -r requirements.txt
 ## How to Use
 ### 1. Dataset
 * WMT'15 with POS-Tagging (Third Dataset Solution)
-* [Dataset README](./datasets/README)
+* Download, pre-processing, and more: [Dataset README](./datasets/README)
 
 ### 2. Training
 * Follow [setup in Wiki](https://github.com/gcunhase/SentenceCorrection-WCCI2018/wiki/MTGRU) for MTGRUCell and MultiMTRNNCell
