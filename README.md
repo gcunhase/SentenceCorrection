@@ -1,15 +1,15 @@
-# About
+## About
 Tensorflow code referent to [*"Temporal Hierarchies in Sequence to Sequence for Sentence Correction"*](https://ieeexplore.ieee.org/abstract/document/8489499) (IEEE WCCI 2018)
 
 Comparison of GRU, LSTM, RNN and MTGRU in the English sentence correction task. 
 
 Check wiki page for more information
 
-## Contents
+### Contents
 
-| [Dataset](#1.-dataset) | [Training](#2.-training) | [Testing](#3.-testing) | [Results](#results) |
+[Dataset](#1.-dataset) • [Training](#2.-training) • [Testing](#3.-testing) • [Results](#results)
 
-## Dependencies
+### Dependencies
 * Python 2.7, NLTK, progressbar2
 * CUDA 8.0
 * CuDNN v5.0
@@ -38,18 +38,18 @@ pip install -r requirements.txt
 
 * Arguments
 
-| Argument                     | Type    | Description                            |
-| ---------------------------- | ------- | -------------------------------------- |
-| `--use_rnn`                  | Boolean | Use RNN                                |
-| `--use_lstm`                 | Boolean | Use LSTM                               |
-| `--use_mtgru`                | Boolean | Use MTGRU                              |
-| `--use_mtlstm`               | Boolean | Use MTLSTM                             |
-| `--train_dir`                | String  | Directory to save model checkpoint     |
-| `--checkpoint_filename`      | String  | Filename to save model checkpoint      |
-| `--checkpoint_filename_best` | String  | Filename to save best model checkpoint |
-> Check *translate_earlyStopping.py* for more arguments
-
-> Example MTGRU: `python translate_earlyStopping.py --use_mtgru=True --train_dir=trainMTGRU --checkpoint_filename=checkpoint_perplexities_mtgru.txt --checkpoint_filename_best=checkpoint_perplexities_mtgru_best.txt` 
+    | Argument                     | Type    | Description                            |
+    | ---------------------------- | ------- | -------------------------------------- |
+    | `--use_rnn`                  | Boolean | Use RNN                                |
+    | `--use_lstm`                 | Boolean | Use LSTM                               |
+    | `--use_mtgru`                | Boolean | Use MTGRU                              |
+    | `--use_mtlstm`               | Boolean | Use MTLSTM                             |
+    | `--train_dir`                | String  | Directory to save model checkpoint     |
+    | `--checkpoint_filename`      | String  | Filename to save model checkpoint      |
+    | `--checkpoint_filename_best` | String  | Filename to save best model checkpoint |
+    > Check *translate_earlyStopping.py* for more arguments
+    
+    > Example MTGRU: `python translate_earlyStopping.py --use_mtgru=True --train_dir=trainMTGRU --checkpoint_filename=checkpoint_perplexities_mtgru.txt --checkpoint_filename_best=checkpoint_perplexities_mtgru_best.txt` 
 
 ### 3. Testing
 In *`./translate/`* folder:
