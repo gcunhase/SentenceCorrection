@@ -13,9 +13,9 @@ Create your own incomplete dataset
     ```
     python download_wmt_data.py --data_dir IncompleteData2
     ```
-  * [TODO:add] make incomplete data POS-Tag
+  * Make incomplete data by deleting some irrelevant words via POS-Tag (*CC, DT, IN, LS, TO, UH*)
     ```
-    python make_incomplete_dataset_pos_tag.py --data_dir IncompleteData2/training-giga-fren
+    python make_incomplete_dataset_pos_tag.py
     ```
 
 ## 2. Separate Train and Test
