@@ -7,7 +7,7 @@ Check wiki page for more information
 
 ### Contents
 
-[Dataset](#1.-dataset) • [Training](#2.-training) • [Testing](#3.-testing) • [Results](#results)
+[How to Use](#how-to-use) • [Results](#results)
 
 ### Dependencies
 * Python 2.7, NLTK, progressbar2
