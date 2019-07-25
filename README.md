@@ -43,7 +43,6 @@ pip install -r requirements.txt
     | `--use_rnn`                  | Boolean | Use RNN                                |
     | `--use_lstm`                 | Boolean | Use LSTM                               |
     | `--use_mtgru`                | Boolean | Use MTGRU                              |
-    | `--use_mtlstm`               | Boolean | Use MTLSTM                             |
     | `--train_dir`                | String  | Directory to save model checkpoint     |
     | `--checkpoint_filename`      | String  | Filename to save model checkpoint      |
     | `--checkpoint_filename_best` | String  | Filename to save best model checkpoint |
