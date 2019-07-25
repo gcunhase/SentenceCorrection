@@ -7,7 +7,7 @@ Check wiki page for more information
 
 ### Contents
 
-[How to Use](#how-to-use) • [Results](#results) • [How to Cite](#acknowledgement)
+[Dependencies](#dependencies) • [How to Use](#how-to-use) • [Results](#results) • [How to Cite](#acknowledgement)
 
 ### Dependencies
 * Python 2.7, NLTK, progressbar2
