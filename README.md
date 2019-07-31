@@ -92,3 +92,5 @@ If you use this code please cite it as:
 ```
 
 Multiple Timescale code based on [Singh's work](https://github.com/dennissm/mtgru).
+
+Translate code was based on work done by [mouuff](https://github.com/mouuff/mtranslate).
