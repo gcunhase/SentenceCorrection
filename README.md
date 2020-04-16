@@ -1,5 +1,7 @@
 ## About
-Tensorflow code referent to [*"Temporal Hierarchies in Sequence to Sequence for Sentence Correction"*](https://ieeexplore.ieee.org/abstract/document/8489499) [![Conference](https://img.shields.io/badge/IJCNN-2018-blue.svg)](https://ieeexplore.ieee.org/abstract/document/8489499)
+[![Conference](https://img.shields.io/badge/IJCNN-2018-blue.svg)](https://ieeexplore.ieee.org/abstract/document/8489499)
+
+Tensorflow code referent to [*"Temporal Hierarchies in Sequence to Sequence for Sentence Correction"*](https://ieeexplore.ieee.org/abstract/document/8489499) (IEEE IJCNN 2018)
 
 Comparison of GRU, LSTM, RNN and MTGRU in the English sentence correction task. 
 
