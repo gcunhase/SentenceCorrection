@@ -1,5 +1,11 @@
+<div align="center">   
+
+[![Conference](https://img.shields.io/badge/IJCNN-2018-blue.svg)](https://ieeexplore.ieee.org/abstract/document/8489499)
+
+</div>
+
 ## About
-Tensorflow code referent to [*"Temporal Hierarchies in Sequence to Sequence for Sentence Correction"*](https://ieeexplore.ieee.org/abstract/document/8489499) (IEEE WCCI 2018)
+Tensorflow code referent to [*"Temporal Hierarchies in Sequence to Sequence for Sentence Correction"*](https://ieeexplore.ieee.org/abstract/document/8489499) (IEEE IJCNN 2018)
 
 Comparison of GRU, LSTM, RNN and MTGRU in the English sentence correction task. 
 
@@ -7,9 +13,9 @@ Check wiki page for more information
 
 ### Contents
 
-[Dependencies](#dependencies) • [How to Use](#how-to-use) • [Results](#results) • [How to Cite](#acknowledgement)
+[Requirements](#requirements) • [How to Use](#how-to-use) • [Results](#results) • [How to Cite](#acknowledgement)
 
-### Dependencies
+## Requirements
 * Python 2.7, NLTK, progressbar2
 * CUDA 8.0
 * CuDNN v5.0
